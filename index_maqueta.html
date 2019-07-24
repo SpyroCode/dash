@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>DashBoard Credicor Mexicano</title>
+    <!--<link rel="stylesheet" type="text/css" href="css/bootstrap.css"> dark-->
+    <link rel="stylesheet" type="text/css" href="css/styles.css">
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="js/jquery.js"></script>
+    <script src="js/jquery.knob.js"></script>
+    <!--<script src="js/theme/dark-unika.js"></script>-->
+    <script>
+        $(document).ready(function () {
+            //$(".dial").knob();
+            $('.cr').knob({
+                'min': 0,
+                'max': 100,
+                'width': 100,
+                'height': 100,
+                'displayInput': true,
+                'fgColor': "#BA4A00",
+                'release': function (v) { $("p").text(v); },
+                'readOnly': true
+            });
+            $('.ap').knob({
+                'min': 0,
+                'max': 100,
+                'width': 100,
+                'height': 100,
+                'displayInput': true,
+                'fgColor': "#2980B9",
+                'release': function (v) { $("p").text(v); },
+                'readOnly': true
+            });
+            $('.vp').knob({
+                'min': 0,
+                'max': 100,
+                'width': 100,
+                'height': 100,
+                'displayInput': true,
+                'fgColor': "#2ECC71",
+                'release': function (v) { $("p").text(v); },
+                'readOnly': true
+            });
+        });
+    </script>
+</head>
+
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+            <a class="navbar-brand" href="index.html">Credicor</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor02"
+                aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarColor02">
+
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="index.html">Inicio <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Colocacion</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Cartera</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Menu1</a>
+                    </li>
+                </ul>
+
+            </div>
+        </nav>
+
+
+    </header>
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+
+                <form action="" method="post" class="form-inline my-2 my-lg-0">
+
+                    <div class="custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input" id="customCheck1" checked="">
+                        <label class="custom-control-label" for="customCheck1">Metas</label>
+                    </div>
+                    <div class="custom-control custom-switch">
+                        <input type="checkbox" class="custom-control-input" id="customSwitch1" checked="">
+                        <label class="custom-control-label" for="customSwitch1">Clientes Casa</label>
+                    </div>
+
+                    <select class="custom-select" id="pro" name="pro">
+                        <option selected="">Producto</option>
+                        <option value="1">Creditos</option>
+                        <option value="2">Arrendamiento</option>
+                        <option value="3">Venta a Plazo</option>
+                    </select>
+                    <select class="custom-select" id="p" name="p">
+                        <option selected="">Periodo</option>
+                        <option value="1">Enero</option>
+                        <option value="2">Febrero</option>
+                        <option value="3">Mazro</option>
+                        <option value="4">Abril</option>
+                        <option value="5">Mayo</option>
+                        <option value="6">Junio</option>
+                        <option value="7">Julio</option>
+                        <option value="8">Agosto</option>
+                        <option value="9">Septiembre</option>
+                        <option value="10">Octubre</option>
+                        <option value="11">Noviembre</option>
+                        <option value="12">Diciembre</option>
+                    </select>
+                    <select class="custom-select" id="yy" name="yy">
+                        <option selected="">Año</option>
+                        <option value="2016">2016</option>
+                        <option value="2017">2017</option>
+                        <option value="2018">2018</option>
+                        <option value="2019">2019</option>
+
+                    </select>
+                    <button class="btn btn-secondary my-2 my-sm-0" type="submit">Enviar</button>
+
+                </form>
+
+            </div>
+        </div>
+
+
+
+        <div class="row">
+            <div class="col" id="tg1">
+                <span class="badge badge-pill badge-warning">Creditos</span>
+                <input type="text" value="20" class="cr">
+            </div>
+            <div class="col" id="tg2">
+                <span class="badge badge-pill badge-info">Arrendamiento</span>
+                <input type="text" value="20" class="ap">
+            </div>
+            <div class="col" id="tg3">
+                <span class="badge badge-pill badge-success">Venta a Plazo</span>
+                <input type="text" value="20" class="vp">
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="col-9" id="metas">
+
+                <script>
+                    Highcharts.chart('metas', {
+                        chart: {
+                            type: 'line'
+                        },
+                        title: {
+                            text: 'Monthly Average Temperature'
+                        },
+                        subtitle: {
+                            text: 'Source: WorldClimate.com'
+                        },
+                        xAxis: {
+                            categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+                        },
+                        yAxis: {
+                            title: {
+                                text: 'Temperature (°C)'
+                            }
+                        },
+                        plotOptions: {
+                            line: {
+                                dataLabels: {
+                                    enabled: true
+                                },
+                                enableMouseTracking: false
+                            }
+                        },
+                        series: [{
+                            name: 'Tokyo',
+                            data: [7.0, 6.9, 9.5, 14.5, 18.4, 21.5, 25.2, 26.5, 23.3, 18.3, 13.9, 9.6]
+                        }, {
+                            name: 'London',
+                            data: [3.9, 4.2, 5.7, 8.5, 11.9, 15.2, 17.0, 16.6, 14.2, 10.3, 6.6, 4.8]
+                        }]
+                    });
+
+                </script>
+            </div>
+            <div class="col-3" id="productos">
+                <script>
+                    // Build the chart
+                    Highcharts.chart('productos', {
+                        chart: {
+                            plotBackgroundColor: null,
+                            plotBorderWidth: null,
+                            plotShadow: false,
+                            type: 'pie'
+                        },
+                        title: {
+                            text: 'Browser market shares in January, 2018'
+                        },
+                        tooltip: {
+                            pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+                        },
+                        plotOptions: {
+                            pie: {
+                                allowPointSelect: true,
+                                cursor: 'pointer',
+                                dataLabels: {
+                                    enabled: false
+                                },
+                                showInLegend: true
+                            }
+                        },
+                        series: [{
+                            name: 'Brands',
+                            colorByPoint: true,
+                            data: [{
+                                name: 'Chrome',
+                                y: 61.41,
+                                sliced: true,
+                                selected: true
+                            }, {
+                                name: 'Internet Explorer',
+                                y: 11.84
+                            }, {
+                                name: 'Firefox',
+                                y: 10.85
+                            }, {
+                                name: 'Edge',
+                                y: 4.67
+                            }, {
+                                name: 'Safari',
+                                y: 4.18
+                            }, {
+                                name: 'Other',
+                                y: 7.05
+                            }]
+                        }]
+                    });
+
+
+                </script>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-6" id="ejecutivos">
+                <script>
+                    Highcharts.chart('ejecutivos', {
+                        chart: {
+                            type: 'bar'
+                        },
+                        title: {
+                            text: 'Stacked bar chart'
+                        },
+                        xAxis: {
+                            categories: ['Apples', 'Oranges', 'Pears', 'Grapes', 'Bananas']
+                        },
+                        yAxis: {
+                            min: 0,
+                            title: {
+                                text: 'Total fruit consumption'
+                            }
+                        },
+                        legend: {
+                            reversed: true
+                        },
+                        plotOptions: {
+                            series: {
+                                stacking: 'normal'
+                            }
+                        },
+                        series: [{
+                            name: 'John',
+                            data: [5, 3, 4, 7, 2]
+                        }, {
+                            name: 'Jane',
+                            data: [2, 2, 3, 2, 1]
+                        }, {
+                            name: 'Joe',
+                            data: [3, 4, 4, 2, 5]
+                        }]
+                    });
+                </script>
+            </div>
+
+            <div class="col-3" id="tipoc">
+                <script>
+                    // Build the chart
+                    Highcharts.chart('tipoc', {
+                        chart: {
+                            plotBackgroundColor: null,
+                            plotBorderWidth: 0,
+                            plotShadow: false
+                        },
+                        title: {
+                            text: 'Browser<br>shares<br>2017',
+                            align: 'center',
+                            verticalAlign: 'middle',
+                            y: 40
+                        },
+                        tooltip: {
+                            pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+                        },
+                        plotOptions: {
+                            pie: {
+                                dataLabels: {
+                                    enabled: true,
+                                    distance: -50,
+                                    style: {
+                                        fontWeight: 'bold',
+                                        color: 'white'
+                                    }
+                                },
+                                startAngle: -90,
+                                endAngle: 90,
+                                center: ['50%', '75%'],
+                                size: '110%'
+                            }
+                        },
+                        series: [{
+                            type: 'pie',
+                            name: 'Browser share',
+                            innerSize: '50%',
+                            data: [
+                                ['Chrome', 58.9],
+                                ['Firefox', 13.29],
+                                ['Internet Explorer', 13],
+                                ['Edge', 3.78],
+                                ['Safari', 3.42],
+                                {
+                                    name: 'Other',
+                                    y: 7.61,
+                                    dataLabels: {
+                                        enabled: false
+                                    }
+                                }
+                            ]
+                        }]
+                    });
+
+                </script>
+            </div>
+            <div class="col-3" id="suc">
+                <script>
+                    // Build the chart
+                    Highcharts.chart('suc', {
+                        chart: {
+                            plotBackgroundColor: null,
+                            plotBorderWidth: null,
+                            plotShadow: false,
+                            type: 'pie'
+                        },
+                        title: {
+                            text: 'Browser market shares in January, 2018'
+                        },
+                        tooltip: {
+                            pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+                        },
+                        plotOptions: {
+                            pie: {
+                                allowPointSelect: true,
+                                cursor: 'pointer',
+                                dataLabels: {
+                                    enabled: false
+                                },
+                                showInLegend: true
+                            }
+                        },
+                        series: [{
+                            name: 'Brands',
+                            colorByPoint: true,
+                            data: [{
+                                name: 'Chrome',
+                                y: 61.41,
+                                sliced: true,
+                                selected: true
+                            }, {
+                                name: 'Internet Explorer',
+                                y: 11.84
+                            }, {
+                                name: 'Firefox',
+                                y: 10.85
+                            }, {
+                                name: 'Edge',
+                                y: 4.67
+                            }, {
+                                name: 'Safari',
+                                y: 4.18
+                            }, {
+                                name: 'Other',
+                                y: 7.05
+                            }]
+                        }]
+                    });
+
+
+                </script>
+            </div>
+
+        </div>
+    </div>
+    </div>
+
+    </div>
+
+    </div>
+    <footer class="card-footer">
+        <div class="footer-copyright text-center py-3"><p>© 2019 Copyright: 
+           Credicor Mexicano</p> 
+        </div>
+
+    </footer>
+
+</body>
+
+</html>
