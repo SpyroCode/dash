@@ -1,124 +1,53 @@
 <?php 
-$dbHost = 'localhost';
-$dbName = 'etl';
-$dbUser = 'root';
-$dbPass = '';
-
-try {
-    $pdo = new PDO("mysql:host=$dbHost;dbname=$dbName", $dbUser, $dbPass);
-    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-} catch(Exception $e) {
-    echo $e->getMessage();
-}
-$yy=date('Y');
-$p=date('n');
-if($_POST){
-    
-    if($_POST['yy']){
-       $yy=$_POST['yy']; 
-    }
-    if($_POST['p']);
-        $p=$_POST['p'];
-    
-}
-if($_POST){
-    $queryResult=$pdo->query("SELECT
-	periodo,
-	clave AS Producto,
-	SUM(Monto) / 1000 AS Monto
-FROM
-	etl_colocacion_resume
-WHERE
-	yy = $yy
-GROUP BY
-	periodo,
-	clave
-ORDER BY
-	Producto,periodo ASC ");
-}else {
-    $queryResult=$pdo->query("SELECT
-	periodo,
-	clave AS Producto,
-	SUM(Monto) / 1000 AS Monto
-FROM
-	etl_colocacion_resume
-WHERE
- yy = $yy
-AND IDTipoCte <> 2
-AND IDTipoCte <> 4
-GROUP BY
-	periodo,
-	clave ");
-}
 $i=0;
 $j=0;
 $k=0;
 $ap=array(0,0,0,0,0,0,0,0,0,0,0,0);
 $vp=array(0,0,0,0,0,0,0,0,0,0,0,0);
 $cr=array(0,0,0,0,0,0,0,0,0,0,0,0);
-
-
-while($row=$queryResult->fetch(PDO::FETCH_ASSOC)) {
-       if($row['Producto']=='AP'){
-                    $j=$row['periodo'];
-                    
-                    $montoap= $row['Monto'];
-                    
-                    $j--;
-                    $ap[$j]=$montoap;
-        } 
-        if($row['Producto']=='VP'){
-                    $k=$row['periodo'];
-                    $montovp= $row['Monto'];
-                    
-                    $k--;
-                    $vp[$k]=$montoap;
-        } 
-        if($row['Producto']=='CR'){
-                    $i=$row['periodo'];
-                    $montocr= $row['Monto'];
-                    
-                    $i--;
-                    $cr[$i]=$montoap;
-        } 
-           
-   
+$totalap=0;
+$totalvp=0;
+$totalcr=0;
+foreach ($datos as $dato) {
+    
+    if($dato["Producto"]=='AP'){
+            $j=$dato['periodo'];
+                        
+            $montoap= $dato['Monto'];
+            $totalap=$totalap+$montoap;
+            $j--;
+            $ap[$j]=$montoap;
+    }
+    
+    if($dato["Producto"]=='VP'){
+            $i=$dato['periodo'];
+                        
+            $montovp= $dato['Monto'];
+            $totalvp=$totalvp+$montovp;
+            
+            $i--;
+            $vp[$i]=$montovp;
+    }
+    if($dato["Producto"]=='CR'){
+            $k=$dato['periodo'];
+                        
+            $montocr= $dato['Monto'];
+            $totalcr=$totalcr+$montocr;
+            
+            $k--;
+            $cr[$k]=$montocr;
+    }
+    
+    
 }
-$queryResult2=$pdo->query("SELECT SUM(Monto) as Monto FROM etl_colocacion_resume WHERE clave='CR' and yy=$yy ");
-while($row=$queryResult2->fetch(PDO::FETCH_ASSOC)) {
-    $montoacr=$row['Monto'];
+foreach ($metas as $meta) {
+    $metaap=$meta['metaAP'];
+    $metavp=$meta['metaVP'];
+    $metacr=$meta['metaCR'];
+    $cumap=($totalap*100)/$metaap;
+    $cumvp=($totalvp*100)/$metavp;
+    $cumcr=($totalcr*100)/$metacr; 
 }
-
-$queryResult2=$pdo->query("SELECT SUM(Monto) as Monto FROM etl_colocacion_resume WHERE clave='AP' and yy=$yy ");
-while($row=$queryResult2->fetch(PDO::FETCH_ASSOC)) {
-    $montoaap=$row['Monto'];
-}
-
-$queryResult2=$pdo->query("SELECT SUM(Monto) as Monto FROM etl_colocacion_resume WHERE clave='VP' and yy=$yy ");
-while($row=$queryResult2->fetch(PDO::FETCH_ASSOC)) {
-    $montoavp=$row['Monto'];
-}
-$queryResult2=$pdo->query("SELECT * FROM etl_metas WHERE yy=$yy ");
-
-while($row=$queryResult2->fetch(PDO::FETCH_ASSOC)) {
-    $metacr=$row['metaCR'];
-    $metaap=$row['metaAP'];
-    $metavp=$row['metaVP'];
-}
-$cumap=($montoaap*100)/$metaap;
-$cumvp=($montoavp*100)/$metavp;
-$cumcr=($montoacr*100)/$metacr;  
-
-$queryResult3=$pdo->query("SELECT
-Producto,
-sum(Monto) AS Monto
-FROM
-etl_colocacion_resume
-WHERE
-yy = $yy
-GROUP BY
-Producto");
-
 
 
 ?>
@@ -134,6 +63,10 @@ Producto");
                     <div class="custom-control custom-switch">
                         <input type="checkbox" class="custom-control-input" name="customSwitch1" id="customSwitch1" checked="">
                         <label class="custom-control-label" for="customSwitch1">Clientes Casa</label>
+                    </div>
+                    <div class="custom-control custom-switch">
+                        <input type="checkbox" class="custom-control-input" name="customSwitch2" id="customSwitch2" checked="">
+                        <label class="custom-control-label" for="customSwitch2">PQ, DC</label>
                     </div>
 
                     <select class="custom-select" id="pro" name="pro" required>
@@ -224,7 +157,7 @@ Producto");
                             data: <?php
                                     echo "[";
                                     for ($i=0; $i < 12; $i++) { 
-                                        echo number_format($cr[$i]);
+                                        echo ($cr[$i]);
                                         
                                         if($i<11){
                                           echo ",";  
@@ -237,7 +170,7 @@ Producto");
                             data: <?php
                                     echo "[";
                                     for ($i=0; $i < 12; $i++) { 
-                                        echo number_format($ap[$i]);
+                                        echo ($ap[$i]);
                                         
                                         if($i<11){
                                           echo ",";  
@@ -251,7 +184,7 @@ Producto");
                             data: <?php
                                     echo "[";
                                     for ($i=0; $i < 12; $i++) { 
-                                        echo number_format($vp[$i]);
+                                        echo ($vp[$i]);
                                         
                                         if($i<11){
                                           echo ",";  

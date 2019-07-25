@@ -5,9 +5,11 @@ $dbName = 'etl';
 $dbUser = 'root';
 $dbPass = '';
 
-try {
-    $pdo = new PDO("mysql:host=$dbHost;dbname=$dbName", $dbUser, $dbPass);
-    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-} catch(Exception $e) {
-    echo $e->getMessage();
+class Conectar{
+    public static function conexion(){
+        $conexion=new mysqli('localhost', 'root', '', 'etl');
+        $conexion->query("SET NAMES 'utf8'");
+        return $conexion;
+    }
 }
+

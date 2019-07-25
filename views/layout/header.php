@@ -7,6 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>DashBoard Credicor Mexicano</title>
     <!--<link rel="stylesheet" type="text/css" href="css/bootstrap.css"> dark-->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="<?=base_url?>css/styles.css">
     <script src="https://code.highcharts.com/highcharts.js"></script>
     <script src="<?=base_url?>js/jquery.js"></script>
