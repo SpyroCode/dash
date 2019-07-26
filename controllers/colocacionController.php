@@ -38,7 +38,15 @@ class colocacionController {
             $yy=$colocacion->getYy();
             $p=$colocacion->getPeriodo();
             $metas=$colocacion->get_metas();
-            
+            $tipocte=$colocacion->getTipoCte();
+            $tipocto=$colocacion->getTipocto();
+            $pro=$colocacion->getProducto();
+            if($tipocte){
+                echo "Sin Casa";
+            }else{
+                echo "Con Casa";
+            }
+                
 
         require_once 'views/dashboard/colocacion.php'; 
        }
