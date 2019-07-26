@@ -411,5 +411,141 @@ foreach ($metas as $meta) {
 
                 </script>
             </div>
+            
 
         </div>
+        <div class="row">
+        <div class="col-6" id="tipocte">
+
+            <script>
+                Highcharts.chart('tipocte', {
+
+                    chart: {
+                        type: 'column'
+                    },
+
+                    title: {
+                        text: 'Colocacion Periodo : <?=$p?> Año <?=$yy?> tipo de Cliente'
+                    },
+
+                    xAxis: {
+                        categories: ['Credito', 'Arrendamiento', 'Venta a Plazo']
+                    },
+
+                    yAxis: {
+                        allowDecimals: false,
+                        min: 0,
+                        title: {
+                            text: 'Miles (1000)'
+                        }
+                    },
+
+                    tooltip: {
+                        formatter: function () {
+                            return '<b>' + this.x + '</b><br/>' +
+                                this.series.name + ': ' + this.y + '<br/>' +
+                                'Total: ' + this.point.stackTotal;
+                        }
+                    },
+
+                    plotOptions: {
+                        column: {
+                            stacking: 'normal'
+                        }
+                    },
+
+                    series: [{
+                        name: 'Normal',
+                        data: [5, 3, 4],
+                        stack: 'normal'
+                    }, {
+                        name: 'Casa',
+                        data: [3, 4, 4],
+                        stack: 'casa'
+                    }, {
+                        name: 'Empleado',
+                        data: [2, 5, 6],
+                        stack: 'casa'
+                    }, {
+                        name: 'Referenciado',
+                        data: [3, 2, 4],
+                        stack: 'normal'
+                    }]
+                });
+            </script>
+        </div>
+        
+    
+        <div class="col-6" id="zonas">
+
+            <script>
+                Highcharts.chart('zonas', {
+                    chart: {
+                        type: 'area'
+                    },
+                    title: {
+                        text: 'Colocacion por Zona en el Año <?=$yy?>'
+                    },
+                    
+                    xAxis: {
+                        allowDecimals: false,
+                        labels: {
+                            formatter: function () {
+                                return this.value; // clean, unformatted number for year
+                            }
+                        }
+                    },
+                    yAxis: {
+                        title: {
+                            text: 'Miles (1000)'
+                        },
+                        labels: {
+                            formatter: function () {
+                                return this.value / 1000 + 'k';
+                            }
+                        }
+                    },
+                    tooltip: {
+                        pointFormat: '{series.name} total Colocado <b>{point.y:,.0f}</b><br/> en {point.x}'
+                    },
+                    plotOptions: {
+                        area: {
+                            pointStart: 1,
+                            marker: {
+                                enabled: false,
+                                symbol: 'circle',
+                                radius: 2,
+                                states: {
+                                    hover: {
+                                        enabled: true
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    series: [{
+                        name: 'IRAPUATO',
+                        data: [
+                           
+                            20434, 24126, 27387, 29459, 31056, 31982, 32040, 31233, 29224
+                        ]
+                    }, {
+                        name: 'LEON',
+                        data: [
+                            30062, 32049, 33952, 35804, 37431, 39197, 45000, 43000, 41000
+                        ]
+                    }, {
+                        name: 'CELAYA',
+                        data: [
+                            37000, 35, 330, 31000, 29000, 270, 25000, 24000, 23000
+                        ]
+                    }]
+                });
+
+
+            </script>
+        </div>
+        
+
+            
+    </div>
