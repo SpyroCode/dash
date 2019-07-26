@@ -42,9 +42,9 @@ class colocacionController {
             $tipocto=$colocacion->getTipocto();
             $pro=$colocacion->getProducto();
             if($tipocte){
-                echo "Sin Casa";
+                $casa= "Sin Casa";
             }else{
-                echo "Con Casa";
+                $casa= "Con Casa";
             }
                 
 

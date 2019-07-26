@@ -134,7 +134,7 @@ foreach ($metas as $meta) {
                             text: 'Colocacion'
                         },
                         subtitle: {
-                            text: 'Colocacion en el Año : <?php echo $yy; ?>'
+                            text: 'Colocacion en el Año : <?php echo $yy; ?> Tipo Cte : <?=$casa?>'
                         },
                         xAxis: {
                             categories: ['Ene', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dic']

@@ -78,7 +78,9 @@
         WHERE
             yy = {$this->getYy()}
         AND
-            IDTipoCte<>{$this->getTipoCte()}    
+            IDTipoCte<>2
+        AND
+            IDTipoCte<>4        
         GROUP BY
             periodo,
             clave ");
