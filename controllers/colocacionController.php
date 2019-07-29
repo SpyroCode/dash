@@ -53,7 +53,7 @@ class colocacionController {
             $colTipoCteC=$colocacion->get_colocacionTipoCteC();
             $colTipoCteR=$colocacion->get_colocacionTipoCteR();
             $colTipoCteE=$colocacion->get_colocacionTipoCteE();
-            $colEjecutivo=$colocacion->get_colocacionEjecutivo();
+            $colEjecutivos=$colocacion->get_colocacionEjecutivo();
                 
 
         require_once 'views/dashboard/colocacion.php'; 

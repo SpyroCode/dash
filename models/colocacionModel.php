@@ -253,7 +253,7 @@
         public function get_colocacionEjecutivo(){
             $query=$this->db->query("SELECT
             IDEjecutivo,
-            Ejectutivo,
+            Ejecutivo,
             clave,
             TRUNCATE (SUM(Monto) / 1000, 0) AS Monto
         FROM
@@ -267,10 +267,11 @@
         ORDER BY
             IDEjecutivo,
             clave");
+            
             while($filas=$query->fetch_assoc()){
-                $this->colEjecutivo[]=$filas;
+                $this->colEjecutivos[]=$filas;
             }
-            return $this->colEjecutivo;
+            return $this->colEjecutivos;
         }
     }
     

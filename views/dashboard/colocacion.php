@@ -100,7 +100,6 @@ foreach ($colProducto as $producto){
 $ctcCRn=0;
 $ctcAPn=0;
 $ctcVPn=0;
-echo "1</br>";
 foreach($colTipoCteN as $montoNormal){
     if($montoNormal['clave']=='CR'){
         $ctcCRn= $montoNormal['Monto'];
@@ -110,9 +109,7 @@ foreach($colTipoCteN as $montoNormal){
         $ctcVPn= $montoNormal['Monto'];
     }
     
-}echo $ctcCRn.",".$ctcAPn.",".$ctcVPn;
-echo "<br>2";
-
+}
 $ctcCRc=0;
 $ctcAPc=0;
 $ctcVPc=0;
@@ -125,8 +122,7 @@ foreach($colTipoCteC as $montoCasa){
         $ctcVPc= $montoCasa['Monto'];
     }
     
-}echo $ctcCRc.",".$ctcAPc.",".$ctcVPc;
-echo "<br>";
+}
 $ctcCRe=0;
 $ctcAPe=0;
 $ctcVPe=0;
@@ -139,9 +135,7 @@ foreach($colTipoCteE as $montoemp){
         $ctcVPe= $montoemp['Monto'];
     }
     
-}echo $ctcCRe.",".$ctcAPe.",".$ctcVPe;
-echo "<br>";
-
+}
 $ctcCRr=0;
 $ctcAPr=0;
 $ctcVPr=0;
@@ -154,12 +148,50 @@ foreach($colTipoCteR as $montoRef){
         $ctcVPr= $montoRef['Monto'];
     }
     
-}echo $ctcCRr.",".$ctcAPr.",".$ctcVPr;
+}
+$i=0;
+$j=0;
+$ejecutivosCol=array();
+$idEjecutivo=0;
+$NumEjecutivos=0;
+foreach( $colEjecutivos as $colEjecutivo){
+    
+    if($idEjecutivo!=$colEjecutivo['IDEjecutivo']){
+        $NumEjecutivos++;
+        
+    }
+    $idEjecutivo=$colEjecutivo['IDEjecutivo'];
+    
+}
+for ($j=0; $j < $NumEjecutivos; $j++) { 
+    for ($i=0; $i < 5; $i++) { 
+        $ejecutivosCol[$j][$i]=0;
+    }
+}
+$i=0;
+$j=0;
+
+foreach( $colEjecutivos as $colEjecutivo){
+        if($j>0){
+            if($idEjecutivo==$colEjecutivo['IDEjecutivo']){
+                $j--;
+            }
+        }   
+        $idEjecutivo=$colEjecutivo["IDEjecutivo"];   
+        $ejecutivosCol[$j][$i]=$colEjecutivo["IDEjecutivo"];
+        $ejecutivosCol[$j][$i+1]=$colEjecutivo["Ejecutivo"];
+        if($colEjecutivo["clave"]=='CR'){
+        $ejecutivosCol[$j][$i+2]=$colEjecutivo["Monto"];    
+        }elseif ($colEjecutivo["clave"]=='AP') {
+            $ejecutivosCol[$j][$i+3]=$colEjecutivo["Monto"]; 
+        }elseif ($colEjecutivo["clave"]=='VP') {
+            $ejecutivosCol[$j][$i+4]=$colEjecutivo["Monto"]; 
+        }
+        $j++;
+  
+}
 
 
-
-
-   
 ?>
 <div class="row">
             <div class="col-12">
@@ -380,7 +412,15 @@ foreach($colTipoCteR as $montoRef){
                             text: 'Colocacion por Ejecutivo Periodo : <?=$p?> Año : <?=$yy?>'
                         },
                         xAxis: {
-                            categories: ['Lilia S', 'Armando M', 'Ulises V', 'Martin T', 'Carlos C']
+                            categories: [
+                                <?php
+                                    for ($j=0; $j < $NumEjecutivos; $j++) { 
+                                        
+                                            echo "'".$ejecutivosCol[$j][1]."',";
+                                                                           
+                                    }
+                                ?>
+                            ]
                         },
                         yAxis: {
                             min: 0,
@@ -398,13 +438,35 @@ foreach($colTipoCteR as $montoRef){
                         },
                         series: [{
                             name: 'Creditos',
-                            data: [50, 30, 40, 70, 20]
+                            data: [
+                                <?php
+                                    for ($j=0; $j < $NumEjecutivos; $j++) { 
+                                        
+                                            echo $ejecutivosCol[$j][2].",";
+                                                                           
+                                    }
+                                ?>
+                            ]
                         }, {
                             name: 'Arrendamiento',
-                            data: [20, 20, 30, 20, 10]
+                            data: [
+                                <?php
+                                    for ($j=0; $j < $NumEjecutivos; $j++) { 
+                                        
+                                            echo $ejecutivosCol[$j][3].",";
+                                                                           
+                                    }
+                                ?>
+                            ]
                         }, {
                             name: 'Venta Plazo',
-                            data: [3, 4, 4, 2, 5]
+                            data: [<?php
+                                    for ($j=0; $j < $NumEjecutivos; $j++) { 
+                                        
+                                            echo $ejecutivosCol[$j][4].",";
+                                                                           
+                                    }
+                                ?>]
                         }]
                     });
                 </script>
