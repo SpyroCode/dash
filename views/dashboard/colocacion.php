@@ -190,6 +190,36 @@ foreach( $colEjecutivos as $colEjecutivo){
         $j++;
   
 }
+$zonasCol=array();
+for ($j=0; $j < 3; $j++) { 
+    for ($i=0; $i < 12; $i++) { 
+        $zonasCol[$j][$i]=0;
+    }
+}
+$zonasCol[0][0]="CELAYA";
+$zonasCol[0][0]="IRAPUATO";
+$zonasCol[0][0]="LEON";
+foreach ($colZonas as $colZona) {
+    if($colZona["zona"]=='CELAYA'){
+        $zonasCol[0][0]=$colZona["zona"];
+        $cont_cel=$colZona["periodo"];
+        $zonasCol[0][$cont_cel]=$colZona["Monto"];
+    }elseif ($colZona["zona"]=='IRAPUATO') {
+        $zonasCol[1][0]=$colZona["zona"];
+        $cont_ira=$colZona["periodo"];
+        $zonasCol[1][$cont_ira]=$colZona["Monto"];
+    }elseif ($colZona["zona"]=='LEON') {
+        $zonasCol[2][0]=$colZona["zona"];
+        $cont_leo=$colZona["periodo"];
+        $zonasCol[2][$cont_leo]=$colZona["Monto"];
+    }
+}
+for ($j=0; $j < 3; $j++) { 
+    for ($i=0; $i < 12; $i++) { 
+        echo $zonasCol[$j][$i].",";
+    }
+    echo "<br>";
+}
 
 
 ?>
@@ -644,13 +674,13 @@ foreach( $colEjecutivos as $colEjecutivo){
                         name: 'Referenciado',
                         data: [
                             <?=$ctcCRr.",".$ctcAPr.",".$ctcVPr;?>                       ],
-                        stack: 'casa'
+                        stack: 'normal'
                     }, {
                         name: 'Empleado',
                         data: [
                             <?=$ctcCRe.",".$ctcAPe.",".$ctcVPe;?>
                         ],
-                        stack: 'normal'
+                        stack: 'casa'
                     }]
                 });
             </script>
@@ -687,7 +717,7 @@ foreach( $colEjecutivos as $colEjecutivo){
                         }
                     },
                     tooltip: {
-                        pointFormat: '{series.name} total Colocado <b>{point.y:,.0f}</b><br/> en {point.x}'
+                        pointFormat: '{series.name} total Colocado en Miles <b>{point.y:,.0f}</b><br/> en {point.x}'
                     },
                     plotOptions: {
                         area: {
@@ -705,20 +735,32 @@ foreach( $colEjecutivos as $colEjecutivo){
                         }
                     },
                     series: [{
-                        name: 'IRAPUATO',
+                        name: '<?=$zonasCol[0][0]?>',
                         data: [
                            
-                            20434, 24126, 27387, 29459, 31056, 31982, 32040, 31233, 29224
+                            <?php
+                                for ($i=1; $i < 12; $i++) { 
+                                    echo $zonasCol[0][$i].",";
+                                }
+                            ?>
                         ]
                     }, {
-                        name: 'LEON',
+                        name: '<?=$zonasCol[1][0]?>',
                         data: [
-                            30062, 32049, 33952, 35804, 37431, 39197, 45000, 43000, 41000
+                            <?php
+                                for ($i=1; $i < 12; $i++) { 
+                                    echo $zonasCol[1][$i].",";
+                                }
+                            ?>
                         ]
                     }, {
-                        name: 'CELAYA',
+                        name: '<?=$zonasCol[2][0]?>',
                         data: [
-                            37000, 35, 330, 31000, 29000, 270, 25000, 24000, 23000
+                            <?php
+                                for ($i=1; $i < 12; $i++) { 
+                                    echo $zonasCol[2][$i].",";
+                                }
+                            ?>
                         ]
                     }]
                 });

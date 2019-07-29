@@ -275,5 +275,25 @@
             }
             return $this->colEjecutivos;
         }
+        public function get_colocacionZonas(){
+            $query=$this->db->query("SELECT
+            zona,
+            periodo,
+            TRUNCATE (SUM(Monto) / 1000, 0) AS Monto
+        FROM
+            etl_colocacion_resume
+        WHERE
+            yy = {$this->getYy()}
+        GROUP BY
+            zona,
+            periodo");
+
+            while($filas=$query->fetch_assoc()){
+                $this->colZonas[]=$filas;
+            }
+            return $this->colZonas;
+        }
+
+        
     }
     
