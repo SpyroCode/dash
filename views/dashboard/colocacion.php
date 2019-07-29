@@ -48,8 +48,118 @@ foreach ($metas as $meta) {
     $cumvp=($totalvp*100)/$metavp;
     $cumcr=($totalcr*100)/$metacr; 
 }
+$mnormal=0;
+$mcasa=0;
+$mreferenciado=0;
+$mempleado=0;
+foreach ($colTipoCte as $ctCte){
+    $idTcte=$ctCte['IDTipoCte'];
+    if($idTcte==1){
+        $anormal=$ctCte['TipoCliente'];
+        $mnormal=$ctCte['Monto'];
+    }elseif ($idTcte==2){
+        $acasa=$ctCte['TipoCliente'];
+        $mcasa=$ctCte['Monto'];
+    }elseif ($idTcte==3){
+        $areferenciado=$ctCte['TipoCliente'];
+        $mreferenciado=$ctCte['Monto'];
+    }elseif ($idTcte==4){
+        $aempleado=$ctCte['TipoCliente'];
+        $mempleado=$ctCte['Monto'];
+    }
+}
+$tipoap=0;
+$tipovp=0;
+$tipolc=0;
+$tipopq=0;
+$tiporef=0;
+$tiposim=0;
+$tipodc=0;
+$tipoavio=0;
+
+foreach ($colProducto as $producto){
+    if($producto['Producto']=='Arrendamiento'){
+        $tipoap=$producto['Monto'];
+    }elseif(($producto['Producto']=='Venta a Plazo')) {
+        $tipovp=$producto['Monto'];
+    }elseif(($producto['Producto']=='CUENTA CORRIENTE')) {
+        $tipolc=$producto['Monto'];
+    }elseif(($producto['Producto']=='QUIROGRAFARIO')) {
+        $tipopq=$producto['Monto'];
+    }elseif(($producto['Producto']=='DIRECTO CON COLATERAL')) {
+        $tipodc=$producto['Monto'];
+    }elseif(($producto['Producto']=='REFACCIONARIO')) {
+        $tiporef=$producto['Monto'];
+    }elseif(($producto['Producto']=='SIMPLE')) {
+        $tiposim=$producto['Monto'];
+    }elseif(($producto['Producto']=='AVIO')) {
+        $tipoavio=$producto['Monto'];
+    }  
+  
+}
+$ctcCRn=0;
+$ctcAPn=0;
+$ctcVPn=0;
+echo "1</br>";
+foreach($colTipoCteN as $montoNormal){
+    if($montoNormal['clave']=='CR'){
+        $ctcCRn= $montoNormal['Monto'];
+    }elseif ($montoNormal['clave']=='AP') {
+        $ctcAPn= $montoNormal['Monto'];
+    }elseif ($montoNormal['clave']=='VP') {
+        $ctcVPn= $montoNormal['Monto'];
+    }
+    
+}echo $ctcCRn.",".$ctcAPn.",".$ctcVPn;
+echo "<br>2";
+
+$ctcCRc=0;
+$ctcAPc=0;
+$ctcVPc=0;
+foreach($colTipoCteC as $montoCasa){
+    if($montoCasa['clave']=='CR'){
+        $ctcCRc= $montoCasa['Monto'];
+    }elseif ($montoCasa['clave']=='AP') {
+        $ctcAPc= $montoCasa['Monto'];
+    }elseif ($montoCasa['clave']=='VP') {
+        $ctcVPc= $montoCasa['Monto'];
+    }
+    
+}echo $ctcCRc.",".$ctcAPc.",".$ctcVPc;
+echo "<br>";
+$ctcCRe=0;
+$ctcAPe=0;
+$ctcVPe=0;
+foreach($colTipoCteE as $montoemp){
+    if($montoemp['clave']=='CR'){
+        $ctcCRe= $montoemp['Monto'];
+    }elseif ($montoemp['clave']=='AP') {
+        $ctcAPe= $montoemp['Monto'];
+    }elseif ($montoemp['clave']=='VP') {
+        $ctcVPe= $montoemp['Monto'];
+    }
+    
+}echo $ctcCRe.",".$ctcAPe.",".$ctcVPe;
+echo "<br>";
+
+$ctcCRr=0;
+$ctcAPr=0;
+$ctcVPr=0;
+foreach($colTipoCteR as $montoRef){
+    if($montoRef['clave']=='CR'){
+        $ctcCRr= $montoRef['Monto'];
+    }elseif ($montoRef['clave']=='AP') {
+        $ctcAPr= $montoRef['Monto'];
+    }elseif ($montoRef['clave']=='VP') {
+        $ctcVPr= $montoRef['Monto'];
+    }
+    
+}echo $ctcCRr.",".$ctcAPr.",".$ctcVPr;
 
 
+
+
+   
 ?>
 <div class="row">
             <div class="col-12">
@@ -224,35 +334,34 @@ foreach ($metas as $meta) {
                             }
                         },
                         series: [{
-                            name: 'Monto(Miles)',
+                            name: 'Porcentajes(%)',
                             colorByPoint: true,
                             data: [{
                                 name: 'Linea CR',
-                                y: 61.41,
-                                sliced: true,
-                                selected: true
+                                y: <?=$tipolc?>
+                                
                             }, {
                                 name: 'D. Colateral',
-                                y: 11.84
+                                y: <?=$tipodc?>
                             }, {
                                 name: 'PQ',
-                                y: 10.85
+                                y: <?=$tipopq?>
+                            },{
+                                name: 'AVIO',
+                                y: <?=$tipoavio?>
                             }, {
                                 name: 'Ref.',
-                                y: 4.67
+                                y: <?=$tiporef?>
                             }, {
                                 name: 'Sim.',
-                                y: 4.18
+                                y: <?=$tiposim?>
                             }, {
                                 name: 'AP',
-                                y: 7.05
+                                y: <?=$tipoap?>
                             },{
                                 name: 'VP',
-                                y: 8.04
-                            }
-                            
-                            
-                            ]
+                                y: <?=$tipovp?>
+                            }]
                         }]
                     });
 
@@ -340,18 +449,15 @@ foreach ($metas as $meta) {
                             name: 'Sectores',
                             innerSize: '50%',
                             data: [
-                                ['Agricola', 58.9],
-                                ['Servicios', 13.29],
-                                ['Construccion', 13],
-                                ['Gobierno', 3.78],
-                                ['Comercio', 3.42],
-                                {
-                                    name: 'Otro',
-                                    y: 7.61,
-                                    dataLabels: {
-                                        enabled: false
-                                    }
-                                }
+
+                                <?PHP   
+                                        foreach ($colSector as $Sector) {  
+                                            
+                                            echo "['".$Sector['Sector']." ',   ".$Sector['Monto']."],";
+                                        }
+                                        
+                                ?>    
+                                
                             ]
                         }]
                     });
@@ -385,26 +491,31 @@ foreach ($metas as $meta) {
                             }
                         },
                         series: [{
-                            name: 'Monto en Miles(1000)',
+                            name: 'Porcentaje en Miles(%)',
                             colorByPoint: true,
-                            data: [{
+                            data: [
+                                {
                                 name: 'Normal',
-                                y: 61.41,
+                                y: <?=$mnormal?>,
                                 sliced: true,
                                 selected: true
                             }, {
-                                name: 'Referenciado',
-                                y: 11.84
-                            }, {
                                 name: 'Casa',
-                                y: 10.85
-                            }, {
+                                y: <?=$mcasa?>,
+                                sliced: true,
+                                selected: true
+                            },{
+                                name: 'Referenciado',
+                                y: <?=$mreferenciado?>,
+                                sliced: true,
+                                selected: true
+                            },{
                                 name: 'Empleado',
-                                y: 4.67
-                            }, {
-                                name: 'Otro',
-                                y: 4.18
-                            }]
+                                y: <?=$mempleado?>,
+                                sliced: true,
+                                selected: true
+                            }  
+                            ]
                         }]
                     });
 
@@ -456,19 +567,27 @@ foreach ($metas as $meta) {
 
                     series: [{
                         name: 'Normal',
-                        data: [5, 3, 4],
+                        data: [
+                            <?=$ctcCRn.",".$ctcAPn.",".$ctcVPn;?>
+                        ],
                         stack: 'normal'
                     }, {
                         name: 'Casa',
-                        data: [3, 4, 4],
+                        data: [
+                            
+                            <?=$ctcCRc.",".$ctcAPc.",".$ctcVPc;?>
+                        ],
                         stack: 'casa'
                     }, {
                         name: 'Empleado',
-                        data: [2, 5, 6],
+                        data: [
+                            <?=$ctcCRe.",".$ctcAPe.",".$ctcVPe;?>                       ],
                         stack: 'casa'
                     }, {
                         name: 'Referenciado',
-                        data: [3, 2, 4],
+                        data: [
+                            <?=$ctcCRr.",".$ctcAPr.",".$ctcVPr;?>
+                        ],
                         stack: 'normal'
                     }]
                 });

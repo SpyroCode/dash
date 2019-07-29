@@ -46,6 +46,14 @@ class colocacionController {
             }else{
                 $casa= "Con Casa";
             }
+            $colTipoCte=$colocacion->get_colocacionTipoCte();
+            $colSector=$colocacion->get_colocacionSector();
+            $colProducto=$colocacion->get_colocacionTipop();
+            $colTipoCteN=$colocacion->get_colocacionTipoCteN();
+            $colTipoCteC=$colocacion->get_colocacionTipoCteC();
+            $colTipoCteR=$colocacion->get_colocacionTipoCteR();
+            $colTipoCteE=$colocacion->get_colocacionTipoCteE();
+            $colEjecutivo=$colocacion->get_colocacionEjecutivo();
                 
 
         require_once 'views/dashboard/colocacion.php'; 

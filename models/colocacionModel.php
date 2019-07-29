@@ -105,5 +105,172 @@
             }
             return $this->metas;
         }
+
+        public function get_colocacionTipoCte(){
+            $query=$this->db->query("SELECT
+            IDTipoCte,
+            TipoCliente,
+            SUM(Monto) / 1000 AS Monto
+        FROM
+            etl_colocacion_resume
+        WHERE
+            yy = {$this->getYy()}
+        GROUP BY
+            IDTipoCte
+        ORDER BY
+            IDTipoCte ASC");
+
+            while($filas=$query->fetch_assoc()){
+                $this->coltipocte[]=$filas;
+            }
+            return $this->coltipocte;
+        }
+
+        public function get_colocacionSector(){
+            $query=$this->db->query("SELECT
+            Sector,
+            SUM(Monto) / 1000 AS Monto
+        FROM
+            etl_colocacion_resume
+        WHERE
+            yy = {$this->getYy()}
+        GROUP BY
+            IDTipoCte
+        ORDER BY
+            Sector ASC
+        ");
+
+            while($filas=$query->fetch_assoc()){
+                $this->colSector[]=$filas;
+            }
+            return $this->colSector;
+
+        }
+
+        public function get_colocacionTipop(){
+            $query=$this->db->query("SELECT
+            Producto,
+            SUM(Monto) / 1000 AS Monto
+        FROM
+            etl_colocacion_resume
+        WHERE
+            yy = {$this->getYy()}
+        and periodo={$this->getPeriodo()}
+        GROUP BY
+            Producto
+        ORDER BY
+            Producto ASC");
+            while($filas=$query->fetch_assoc()){
+                $this->colTipop[]=$filas;
+            }
+            return $this->colTipop;
+
+        }
+        public function get_colocacionTipoCteN(){
+            $query=$this->db->query("SELECT
+                    clave,
+                    TipoCliente,
+                    IDTipoCte,
+                    TRUNCATE(SUM(Monto) / 1000,0) AS Monto
+                FROM
+                    etl_colocacion_resume
+                WHERE
+                    yy = {$this->getYy()}
+                AND periodo = {$this->getPeriodo()}
+                AND IDTipoCte = 1
+                GROUP BY
+                    clave
+                ORDER BY
+                    clave ASC");
+            while($filas=$query->fetch_assoc()){
+                $this->colTipoN[]=$filas;
+            }
+            return $this->colTipoN;
+        }
+        public function get_colocacionTipoCteC(){
+            $query=$this->db->query("SELECT
+                    clave,
+                    TipoCliente,
+                    IDTipoCte,
+                    TRUNCATE(SUM(Monto) / 1000,0) AS Monto
+                FROM
+                    etl_colocacion_resume
+                WHERE
+                    yy = {$this->getYy()}
+                AND periodo = {$this->getPeriodo()}
+                AND IDTipoCte = 2
+                GROUP BY
+                    clave
+                ORDER BY
+                    clave ASC");
+            while($filas=$query->fetch_assoc()){
+                $this->colTipoC[]=$filas;
+            }
+            return $this->colTipoC;
+        }
+        public function get_colocacionTipoCteR(){
+            $query=$this->db->query("SELECT
+                    clave,
+                    TipoCliente,
+                    IDTipoCte,
+                    TRUNCATE(SUM(Monto) / 1000,0) AS Monto
+                FROM
+                    etl_colocacion_resume
+                WHERE
+                    yy = {$this->getYy()}
+                AND periodo = {$this->getPeriodo()}
+                AND IDTipoCte = 3
+                GROUP BY
+                    clave
+                ORDER BY
+                    clave ASC");
+            while($filas=$query->fetch_assoc()){
+                $this->colTipoR[]=$filas;
+            }
+            return $this->colTipoR;
+        }
+        public function get_colocacionTipoCteE(){
+            $query=$this->db->query("SELECT
+                    clave,
+                    TipoCliente,
+                    IDTipoCte,
+                    TRUNCATE(SUM(Monto) / 1000,0) AS Monto
+                FROM
+                    etl_colocacion_resume
+                WHERE
+                    yy = {$this->getYy()}
+                AND periodo = {$this->getPeriodo()}
+                AND IDTipoCte = 4
+                GROUP BY
+                    clave
+                ORDER BY
+                    clave ASC");
+            while($filas=$query->fetch_assoc()){
+                $this->colTipoE[]=$filas;
+            }
+            return $this->colTipoE;
+        }
+        public function get_colocacionEjecutivo(){
+            $query=$this->db->query("SELECT
+            IDEjecutivo,
+            Ejectutivo,
+            clave,
+            TRUNCATE (SUM(Monto) / 1000, 0) AS Monto
+        FROM
+            etl_colocacion_resume
+        WHERE
+            yy = {$this->getYy()}
+        AND periodo = {$this->getPeriodo()}
+        GROUP BY
+            IDEjecutivo,
+            clave
+        ORDER BY
+            IDEjecutivo,
+            clave");
+            while($filas=$query->fetch_assoc()){
+                $this->colEjecutivo[]=$filas;
+            }
+            return $this->colEjecutivo;
+        }
     }
     
