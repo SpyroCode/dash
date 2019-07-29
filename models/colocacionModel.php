@@ -115,6 +115,7 @@
             etl_colocacion_resume
         WHERE
             yy = {$this->getYy()}
+            AND periodo= {$this->getPeriodo()}    
         GROUP BY
             IDTipoCte
         ORDER BY
@@ -134,10 +135,11 @@
             etl_colocacion_resume
         WHERE
             yy = {$this->getYy()}
+        AND periodo= {$this->getPeriodo()}   
         GROUP BY
-            IDTipoCte
+            IDSector
         ORDER BY
-            Sector ASC
+            IDSector ASC
         ");
 
             while($filas=$query->fetch_assoc()){

@@ -482,7 +482,7 @@ foreach( $colEjecutivos as $colEjecutivo){
                             plotShadow: false
                         },
                         title: {
-                            text: 'Sectores<br><?=$yy?>',
+                            text: 'Sectores<br><?=$yy?><br>Periodo<br><?=$p?>',
                             align: 'center',
                             verticalAlign: 'middle',
                             y: 40
@@ -537,7 +537,7 @@ foreach( $colEjecutivos as $colEjecutivo){
                             type: 'pie'
                         },
                         title: {
-                            text: 'Tipo de Cliente, <?=$yy?>'
+                            text: 'Tipo de Cliente, Periodo <?=$p?> Año : <?=$yy?>'
                         },
                         tooltip: {
                             pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
@@ -641,14 +641,14 @@ foreach( $colEjecutivos as $colEjecutivo){
                         ],
                         stack: 'casa'
                     }, {
-                        name: 'Empleado',
-                        data: [
-                            <?=$ctcCRe.",".$ctcAPe.",".$ctcVPe;?>                       ],
-                        stack: 'casa'
-                    }, {
                         name: 'Referenciado',
                         data: [
-                            <?=$ctcCRr.",".$ctcAPr.",".$ctcVPr;?>
+                            <?=$ctcCRr.",".$ctcAPr.",".$ctcVPr;?>                       ],
+                        stack: 'casa'
+                    }, {
+                        name: 'Empleado',
+                        data: [
+                            <?=$ctcCRe.",".$ctcAPe.",".$ctcVPe;?>
                         ],
                         stack: 'normal'
                     }]
