@@ -1,2 +1,2 @@
-database.php
-parameters.php
+config/database.php
+config/parameters.php
