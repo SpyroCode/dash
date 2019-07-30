@@ -283,7 +283,7 @@
         FROM
             etl_colocacion_resume
         WHERE
-            yy = 2019
+            yy = {$this->getPeriodo()}
         GROUP BY
             zona,
             periodo");
