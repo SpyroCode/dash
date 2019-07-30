@@ -69,10 +69,10 @@
                         <a class="nav-link" href="<?=base_url?>colocacion/index">Colocacion</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Cartera</a>
+                        <a class="nav-link" href="<?=base_url?>segmentacion/index">Segmentacion</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Menu1</a>
+                        <a class="nav-link" href="#">Cartera</a>
                     </li>
                 </ul>
 
