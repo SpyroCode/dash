@@ -297,22 +297,98 @@
             return $this->colTipoE;
         }
         public function get_colocacionEjecutivo(){
-            $query=$this->db->query("SELECT
-            IDEjecutivo,
-            Ejecutivo,
-            clave,
-            TRUNCATE (SUM(Monto) / 1000, 0) AS Monto
-        FROM
-            etl_colocacion_resume
-        WHERE
-            yy = {$this->getYy()}
-        AND periodo = {$this->getPeriodo()}
-        GROUP BY
-            IDEjecutivo,
-            clave
-        ORDER BY
-            IDEjecutivo,
-            clave");
+            if($this->tipocte){
+                if($this->tipocto){
+                $query=$this->db->query("SELECT
+                                IDEjecutivo,
+                                Ejecutivo,
+                                clave,
+                                TRUNCATE (SUM(Monto) / 1000, 0) AS Monto
+                            FROM
+                                etl_colocacion_resume
+                            WHERE
+                                yy = {$this->getYy()}
+                            AND periodo = {$this->getPeriodo()}
+                            GROUP BY
+                                IDEjecutivo,
+                                clave
+                            ORDER BY
+                                IDEjecutivo,
+                                clave");
+                }else{
+                    $query=$this->db->query("SELECT
+                                IDEjecutivo,
+                                Ejecutivo,
+                                clave,
+                                TRUNCATE (SUM(Monto) / 1000, 0) AS Monto
+                            FROM
+                                etl_colocacion_resume
+                            WHERE
+                                yy = {$this->getYy()}
+                            AND 
+                                periodo = {$this->getPeriodo()}
+                            AND 
+                                Producto<>'QUIROGRAFARIO'
+                            GROUP BY
+                                IDEjecutivo,
+                                clave
+                            ORDER BY
+                                IDEjecutivo,
+                                clave");
+
+                }
+            }else{
+                if($this->tipocto){
+                    $query=$this->db->query("SELECT
+                                IDEjecutivo,
+                                Ejecutivo,
+                                clave,
+                                TRUNCATE (SUM(Monto) / 1000, 0) AS Monto
+                            FROM
+                                etl_colocacion_resume
+                            WHERE
+                                yy = {$this->getYy()}
+                            AND 
+                                periodo = {$this->getPeriodo()}
+                            AND 
+                                IDTipoCte<>2
+                            AND
+                                IDTipoCte<>4      
+                            GROUP BY
+                                IDEjecutivo,
+                                clave
+                            ORDER BY
+                                IDEjecutivo,
+                                clave");
+                }else{
+                    $query=$this->db->query("SELECT
+                                IDEjecutivo,
+                                Ejecutivo,
+                                clave,
+                                TRUNCATE (SUM(Monto) / 1000, 0) AS Monto
+                            FROM
+                                etl_colocacion_resume
+                            WHERE
+                                yy = {$this->getYy()}
+                            AND 
+                                periodo = {$this->getPeriodo()}
+                            AND 
+                                Producto<>'QUIROGRAFARIO'
+                            AND
+                                IDTipoCte<>2
+                            AND
+                                IDTipoCte<>4      
+                            GROUP BY
+                                IDEjecutivo,
+                                clave
+                            ORDER BY
+                                IDEjecutivo,
+                                clave");
+
+                }
+
+            }
+            
             
             while($filas=$query->fetch_assoc()){
                 $this->colEjecutivos[]=$filas;
@@ -321,16 +397,16 @@
         }
         public function get_colocacionZonas(){
             $query=$this->db->query("SELECT
-            zona,
-            periodo,
-            TRUNCATE (SUM(Monto) / 1000, 0) AS Monto
-        FROM
-            etl_colocacion_resume
-        WHERE
-            yy = {$this->getYy()}
-        GROUP BY
-            zona,
-            periodo");
+                zona,
+                periodo,
+                TRUNCATE (SUM(Monto) / 1000, 0) AS Monto
+            FROM
+                etl_colocacion_resume
+            WHERE
+                yy = {$this->getYy()}
+            GROUP BY
+                zona,
+                periodo");
 
             while($filas=$query->fetch_assoc()){
                 $this->colZonas[]=$filas;

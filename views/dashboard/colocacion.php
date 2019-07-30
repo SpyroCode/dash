@@ -1,4 +1,5 @@
 <?php 
+
 $i=0;
 $j=0;
 $k=0;
@@ -233,12 +234,7 @@ foreach ($colZonas as $colZona) {
                         <label class="custom-control-label" for="customSwitch2">PQ</label>
                     </div>
 
-                    <select class="custom-select" id="pro" name="pro" required>
-                        <option selected="">Producto</option>
-                        <option value="1">Creditos</option>
-                        <option value="2">Arrendamiento</option>
-                        <option value="3">Venta a Plazo</option>
-                    </select>
+              
                     <select class="custom-select" id="p" name="p" required>
                         <option selected="">Periodo</option>
                         <option value="1">Enero</option>
@@ -270,7 +266,9 @@ foreach ($colZonas as $colZona) {
         </div>
 
 
-
+        <?php if ($_POST["customCheck1"]): 
+            # code...
+        ?>
         <div class="row">
             <div class="col" id="tg1">
                 <span class="badge badge-pill badge-warning">Creditos</span>
@@ -284,7 +282,7 @@ foreach ($colZonas as $colZona) {
                 <span class="badge badge-pill badge-success">Venta a Plazo</span>
                 <input type="text" value="<?php echo number_format($cumvp); ?>" class="vp">
             </div>
-
+        <?php endif; ?>
         </div>
         <div class="row">
             <div class="col-9" id="metas">
