@@ -1,5 +1,6 @@
 <?php
 
+
     class segmentacionModel{
         public function __construct(){
             $this->db=Conectar::conexion();

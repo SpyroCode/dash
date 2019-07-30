@@ -8,6 +8,7 @@ foreach( $segmentos_ejecutivos as  $segmentos_ejecutivo){
 $recorrido=$i;
 $i=0;
 $j=0;
+
 $segmentos_cant=array();
 foreach($segmentos_ejecs as $segmento){
     //echo $segmento['DescSegmento'].",".$segmento['cant'].",".$segmento['Ejecutivo'];
