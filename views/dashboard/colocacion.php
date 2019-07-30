@@ -214,14 +214,6 @@ foreach ($colZonas as $colZona) {
         $zonasCol[2][$cont_leo]=$colZona["Monto"];
     }
 }
-for ($j=0; $j < 3; $j++) { 
-    for ($i=0; $i < 12; $i++) { 
-        echo $zonasCol[$j][$i].",";
-    }
-    echo "<br>";
-}
-
-
 ?>
 <div class="row">
             <div class="col-12">
@@ -238,7 +230,7 @@ for ($j=0; $j < 3; $j++) {
                     </div>
                     <div class="custom-control custom-switch">
                         <input type="checkbox" class="custom-control-input" name="customSwitch2" id="customSwitch2" checked="">
-                        <label class="custom-control-label" for="customSwitch2">PQ, DC</label>
+                        <label class="custom-control-label" for="customSwitch2">PQ</label>
                     </div>
 
                     <select class="custom-select" id="pro" name="pro" required>
