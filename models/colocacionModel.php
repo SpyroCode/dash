@@ -396,17 +396,73 @@
             return $this->colEjecutivos;
         }
         public function get_colocacionZonas(){
-            $query=$this->db->query("SELECT
-                zona,
-                periodo,
-                TRUNCATE (SUM(Monto) / 1000, 0) AS Monto
-            FROM
-                etl_colocacion_resume
-            WHERE
-                yy = {$this->getYy()}
-            GROUP BY
-                zona,
-                periodo");
+            if($this->tipocte){
+                if($this->tipocto){
+                    $query=$this->db->query("SELECT
+                                    zona,
+                                    periodo,
+                                    TRUNCATE (SUM(Monto) / 1000, 0) AS Monto
+                                FROM
+                                    etl_colocacion_resume
+                                WHERE
+                                    yy = {$this->getYy()}
+                                GROUP BY
+                                    zona,
+                                    periodo");
+                }else{
+                    $query=$this->db->query("SELECT
+                                    zona,
+                                    periodo,
+                                    TRUNCATE (SUM(Monto) / 1000, 0) AS Monto
+                                FROM
+                                    etl_colocacion_resume
+                                WHERE
+                                    yy = {$this->getYy()}
+                                AND
+                                    Producto<>'QUIROGRAFARIO'    
+                                GROUP BY
+                                    zona,
+                                    periodo");
+                }
+            }else{
+                if($this->tipocto){
+                    $query=$this->db->query("SELECT
+                                    zona,
+                                    periodo,
+                                    TRUNCATE (SUM(Monto) / 1000, 0) AS Monto
+                                FROM
+                                    etl_colocacion_resume
+                                WHERE
+                                    yy = {$this->getYy()}
+                                AND
+                                    IDTipoCte<>2
+                                AND
+                                    IDTipoCte<>4     
+                                GROUP BY
+                                    zona,
+                                    periodo");
+
+                }else{
+                    $query=$this->db->query("SELECT
+                                    zona,
+                                    periodo,
+                                    TRUNCATE (SUM(Monto) / 1000, 0) AS Monto
+                                FROM
+                                    etl_colocacion_resume
+                                WHERE
+                                    yy = {$this->getYy()}
+                                AND
+                                    Producto<>'QUIROGRAFARIO'
+                                AND
+                                    IDTipoCte<>2
+                                AND
+                                    IDTipoCte<>4     
+                                GROUP BY
+                                    zona,
+                                    periodo");
+                }
+            }
+            
 
             while($filas=$query->fetch_assoc()){
                 $this->colZonas[]=$filas;

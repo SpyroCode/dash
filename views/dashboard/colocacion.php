@@ -222,7 +222,7 @@ foreach ($colZonas as $colZona) {
                 <form action="<?=base_url?>colocacion/index" method="post" class="form-inline my-2 my-lg-0">
 
                     <div class="custom-control custom-checkbox">
-                        <input type="checkbox" class="custom-control-input" name="customCheck1" id="customCheck1" checked="">
+                        <input type="checkbox" class="custom-control-input" name="customCheck1" id="customCheck1" checked="true">
                         <label class="custom-control-label" for="customCheck1">Metas</label>
                     </div>
                     <div class="custom-control custom-switch">
@@ -429,8 +429,11 @@ foreach ($colZonas as $colZona) {
                             type: 'bar'
                         },
                         title: {
-                            text: 'Colocacion por Ejecutivo Periodo : <?=$p?> Año : <?=$yy?>'
+                            text: 'Colocacion por Ejecutivo Periodo : <?=$p?> Año : <?=$yy?>  '
                         },
+                        subtitle: {
+                             text: 'Fuente : <?=$casa?> (<?=$pq?>)'
+                         },
                         xAxis: {
                             categories: [
                                 <?php
@@ -686,6 +689,9 @@ foreach ($colZonas as $colZona) {
                     },
                     title: {
                         text: 'Colocacion por Zona en el Año <?=$yy?>'
+                    },
+                    subtitle: {
+                             text: 'Fuente : <?=$casa?> (<?=$pq?>)'
                     },
                     
                     xAxis: {
