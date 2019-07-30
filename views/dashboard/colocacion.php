@@ -298,7 +298,7 @@ foreach ($colZonas as $colZona) {
                             text: 'Colocacion'
                         },
                         subtitle: {
-                            text: 'Colocacion en el Año : <?php echo $yy; ?> Tipo Cte : <?=$casa?>'
+                            text: 'Colocacion en el Año : <?php echo $yy; ?> Tipo Cte : <?=$casa?> (<?=$pq?>)'
                         },
                         xAxis: {
                             categories: ['Ene', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dic']

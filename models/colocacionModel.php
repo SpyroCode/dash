@@ -51,40 +51,84 @@
             
         }
         public function getTipocto(){
-            return $this->tipocto;
-        }
-
-        public function get_colocacionanual(){
-            if($this->tipocte){
-            $query=$this->db->query("SELECT
-            periodo,
-            clave AS Producto,
-            TRUNCATE(SUM(Monto) / 1000,0)  AS Monto
-        FROM
-            etl_colocacion_resume
-        WHERE
-            yy = {$this->getYy()}
-           
-        GROUP BY
-            periodo,
-            clave ");
+            if($this->tipocto){
+                return "QUIROGRAFARIO";
             }else{
-                $query=$this->db->query("SELECT
-            periodo,
-            clave AS Producto,
-            TRUNCATE(SUM(Monto) / 1000,0)  AS Monto
-        FROM
-            etl_colocacion_resume
-        WHERE
-            yy = {$this->getYy()}
-        AND
-            IDTipoCte<>2
-        AND
-            IDTipoCte<>4        
-        GROUP BY
-            periodo,
-            clave ");
+                return "";
             }
+            
+        }
+        
+        public function get_colocacionanual(){
+            
+            if($this->tipocte){
+                if($this->tipocto){
+                    $query=$this->db->query("SELECT
+                            periodo,
+                            clave AS Producto,
+                            TRUNCATE(SUM(Monto) / 1000,0)  AS Monto
+                        FROM
+                            etl_colocacion_resume
+                        WHERE
+                            yy = {$this->getYy()}
+                        GROUP BY
+                            periodo,
+                            clave ");
+                }else{
+                    $query=$this->db->query("SELECT
+                            periodo,
+                            clave AS Producto,
+                            TRUNCATE(SUM(Monto) / 1000,0)  AS Monto
+                        FROM
+                            etl_colocacion_resume
+                        WHERE
+                            yy = {$this->getYy()}
+                        AND 
+                            Producto<>'QUIROGRAFARIO'
+                        GROUP BY
+                            periodo,
+                            clave ");
+                }
+                    
+            }else{
+                if($this->tipocto){
+                    $query=$this->db->query("SELECT
+                        periodo,
+                        clave AS Producto,
+                        TRUNCATE(SUM(Monto) / 1000,0)  AS Monto
+                    FROM
+                        etl_colocacion_resume
+                    WHERE
+                        yy = {$this->getYy()}
+                    AND
+                        IDTipoCte<>2
+                    AND
+                        IDTipoCte<>4        
+                    GROUP BY
+                        periodo,
+                        clave ");
+                }else{
+                    $query=$this->db->query("SELECT
+                        periodo,
+                        clave AS Producto,
+                        TRUNCATE(SUM(Monto) / 1000,0)  AS Monto
+                    FROM
+                        etl_colocacion_resume
+                    WHERE
+                        yy = {$this->getYy()}
+                    AND 
+                        Producto<>'QUIROGRAFARIO'
+                    AND
+                        IDTipoCte<>2
+                    AND
+                        IDTipoCte<>4        
+                    GROUP BY
+                        periodo,
+                        clave ");
+                }
+                
+            }
+            
             while($filas=$query->fetch_assoc()){
                 $this->coloacionanual[]=$filas;
             }
@@ -283,7 +327,7 @@
         FROM
             etl_colocacion_resume
         WHERE
-            yy = {$this->getPeriodo()}
+            yy = {$this->getYy()}
         GROUP BY
             zona,
             periodo");

@@ -28,6 +28,7 @@ class colocacionController {
             }elseif(!empty($_POST['customSwitch2'])){
                 $tipocto=$_POST['customSwitch2'];
             }
+           
             $colocacion=new colocacionModel();
             $colocacion->setYy($yy);
             $colocacion->setPeriodo($p);
@@ -46,6 +47,12 @@ class colocacionController {
             }else{
                 $casa= "Con Casa";
             }
+            if($tipocto){
+                $pq="Con PQs";
+            }else{
+                $pq="Sin PQs";
+            }
+            
             $colTipoCte=$colocacion->get_colocacionTipoCte();
             $colSector=$colocacion->get_colocacionSector();
             $colProducto=$colocacion->get_colocacionTipop();
@@ -54,7 +61,8 @@ class colocacionController {
             $colTipoCteR=$colocacion->get_colocacionTipoCteR();
             $colTipoCteE=$colocacion->get_colocacionTipoCteE();
             $colEjecutivos=$colocacion->get_colocacionEjecutivo();
-            $colZonas=$colocacion->get_colocacionZonas();                
+            $colZonas=$colocacion->get_colocacionZonas();     
+                     
 
         require_once 'views/dashboard/colocacion.php'; 
        }
