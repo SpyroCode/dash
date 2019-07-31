@@ -6,13 +6,33 @@ foreach( $segmentos_ejecutivos as  $segmentos_ejecutivo){
         $i++;
 }  
 $recorrido=$i;
+
 $i=0;
 $j=0;
-
+$acumula_seg=0;
 $segmentos_cant=array();
 foreach($segmentos_ejecs as $segmento){
-    //echo $segmento['DescSegmento'].",".$segmento['cant'].",".$segmento['Ejecutivo'];
+for ($j=0; $j < $recorrido ; $j++) { 
+        $segmentos_cant[$i][$j+1]=0;
+    }
+    $i++;
 }
+$i=0;
+foreach($segmentos_ejecs as $segmento){
+    if($segmento["Segmento"]>$acumula_seg){
+        $i++;
+        
+    }
+    $segmentos_cant[$i][0]=$segmento["DescSegmento"];
+    
+    for ($j=0; $j < $recorrido; $j++) { 
+       if($segmento['IDEjecutivo']==$ejecutivos[$j]){
+            $segmentos_cant[$i][$j+1]=$segmento['cant'];
+        } 
+    }
+    $acumula_seg=$segmento["Segmento"];
+}
+$no_segmentos=$i;
 
 ?>
 <div class="row">
@@ -166,9 +186,17 @@ foreach($segmentos_ejecs as $segmento){
                         }
                     },
                     series: [
-                             { name: 'John',data: [5, 3, 4, 7, 2]}, 
-                             { name: 'Jane',data: [2, 2, 3, 2, 1]},
-                             { name: 'Joe', data: [3, 4, 4, 2, 5]},
+                             <?php
+                                for ($i=0; $i <=$no_segmentos ; $i++) { 
+                                      echo "{ name: '".$segmentos_cant[$i][0]."',data: [";  
+                                    for ($j=1; $j <=$recorrido ; $j++) { 
+                                      echo  $segmentos_cant[$i][$j].","; 
+                                    }
+                                    echo "]},";
+                                }
+                             ?>   
+                             
+                             
                             ]
                 });
             </script>
