@@ -61,8 +61,9 @@ class colocacionController {
             $colTipoCteR=$colocacion->get_colocacionTipoCteR();
             $colTipoCteE=$colocacion->get_colocacionTipoCteE();
             $colEjecutivos=$colocacion->get_colocacionEjecutivo();
-            $colZonas=$colocacion->get_colocacionZonas();     
-                     
+            $colZonas=$colocacion->get_colocacionZonas(); 
+            $colporyy=$colocacion->get_poryy();    
+                   
 
         require_once 'views/dashboard/colocacion.php'; 
        }

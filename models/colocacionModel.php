@@ -470,6 +470,63 @@
             return $this->colZonas;
         }
 
+        public function get_poryy(){
+
+            if($this->tipocte){
+                if($this->tipocto){
+                    $query=$this->db->query("SELECT
+                    yy,
+                    TRUNCATE (SUM(Monto) / 1000, 0) AS Monto
+                FROM
+                    etl_colocacion_resume
+                GROUP BY
+                    yy");
+                }else {
+                    $query=$this->db->query("SELECT
+                    yy,
+                    TRUNCATE (SUM(Monto) / 1000, 0) AS Monto
+                FROM
+                    etl_colocacion_resume
+                WHERE
+                    Producto <> 'QUIROGRAFARIO'
+                
+                GROUP BY
+                    yy");
+                }
+            }else{
+                if($this->tipocto){
+                    $query=$this->db->query("SELECT
+                    yy,
+                    TRUNCATE (SUM(Monto) / 1000, 0) AS Monto
+                FROM
+                    etl_colocacion_resume
+                WHERE
+                    Producto <> 'QUIROGRAFARIO'
+                
+                GROUP BY
+                    yy");
+
+                }else {
+                    $query=$this->db->query("SELECT
+                    yy,
+                    TRUNCATE (SUM(Monto) / 1000, 0) AS Monto
+                FROM
+                    etl_colocacion_resume
+                WHERE
+                    Producto <> 'QUIROGRAFARIO'
+                AND IDTipoCte <> 2
+                AND IDTipoCte <> 4
+                GROUP BY
+                    yy");
+                }
+            }
+            while($filas=$query->fetch_assoc()){
+                $this->colPorYy[]=$filas;
+            }
+            return $this->colPorYy;    
+
+        }
+
         
     }
     
