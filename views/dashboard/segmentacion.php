@@ -135,7 +135,7 @@ $no_segmentos=$i;
                         type: 'column'
                     },
                     title: {
-                        text: 'Segmentacion por Ejecutivo'
+                        text: 'Cuadro de Control'
                     },
                     xAxis: {
                         categories: [
