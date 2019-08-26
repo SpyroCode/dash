@@ -479,6 +479,8 @@
                     TRUNCATE (SUM(Monto) / 1000, 0) AS Monto
                 FROM
                     etl_colocacion_resume
+                WHERE 
+                    yy>=2013    
                 GROUP BY
                     yy");
                 }else {
@@ -489,6 +491,7 @@
                     etl_colocacion_resume
                 WHERE
                     Producto <> 'QUIROGRAFARIO'
+                AND yy>=2013    
                 
                 GROUP BY
                     yy");
@@ -502,7 +505,8 @@
                     etl_colocacion_resume
                 WHERE
                     Producto <> 'QUIROGRAFARIO'
-                
+                AND 
+                    YY>=2013
                 GROUP BY
                     yy");
 
@@ -516,6 +520,7 @@
                     Producto <> 'QUIROGRAFARIO'
                 AND IDTipoCte <> 2
                 AND IDTipoCte <> 4
+                AND YY>=2013
                 GROUP BY
                     yy");
                 }
