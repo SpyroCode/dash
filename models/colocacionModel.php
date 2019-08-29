@@ -16,6 +16,7 @@
             $this->coloacionanual=array();
             $this->casa=2;
             $this->emp=4;
+            
         }
 
         public function setYy($yy){
@@ -164,7 +165,7 @@
             IDTipoCte
         ORDER BY
             IDTipoCte ASC");
-
+        
             while($filas=$query->fetch_assoc()){
                 $this->coltipocte[]=$filas;
             }
@@ -185,7 +186,7 @@
         ORDER BY
             IDSector ASC
         ");
-
+        
             while($filas=$query->fetch_assoc()){
                 $this->colSector[]=$filas;
             }

@@ -10,6 +10,7 @@ class colocacionController {
             }
             if(empty($_POST['p']) || $_POST['p']=='Periodo'){
                 $p=date('n');
+                $p=$p-1;
             }elseif(!empty($_POST['p'])){
                 $p=$_POST['p'];
             }
@@ -28,7 +29,7 @@ class colocacionController {
             }elseif(!empty($_POST['customSwitch2'])){
                 $tipocto=$_POST['customSwitch2'];
             }
-           
+            
             $colocacion=new colocacionModel();
             $colocacion->setYy($yy);
             $colocacion->setPeriodo($p);

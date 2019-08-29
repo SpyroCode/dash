@@ -53,6 +53,7 @@ $mnormal=0;
 $mcasa=0;
 $mreferenciado=0;
 $mempleado=0;
+
 foreach ($colTipoCte as $ctCte){
     $idTcte=$ctCte['IDTipoCte'];
     if($idTcte==1){
