@@ -1,4 +1,5 @@
 <?php
+session_start();
 require_once 'autoload.php';
 require_once 'config/parameters.php';
 require_once 'config/database.php';
@@ -13,6 +14,9 @@ if(isset($_GET['controller'])){
 }elseif(!isset($_GET['controller'])&&!isset($_GET['action'])){
 
 	$nombre_controlador=controller_default;
+	$action = action_default;
+	$controlador = new $nombre_controlador();
+	$controlador->$action();
 
 }else{
 	show_error();
@@ -27,6 +31,7 @@ if(class_exists($nombre_controlador)){
 		$controlador->$action();
 	}elseif(!isset($_GET['action'])){
 		$action=action_default;
+		
 	}else{
 		show_error();
 	}
